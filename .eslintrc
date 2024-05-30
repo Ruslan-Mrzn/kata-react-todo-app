@@ -3,7 +3,7 @@
       "browser": true,
       "es2021": true
     },
-    "ignorePatterns": ["node_modules", "dist", "build"],
+    "ignorePatterns": ["node_modules", "dist", "build", ".vscode"],
     "extends": [
       "eslint:recommended",
       "plugin:react/recommended",
@@ -25,7 +25,7 @@
       "linebreak-style": [0, "unix"],
       "quotes": ["error", "single"],
       "semi": ["error", "never"],
-      "react/react-in-jsx-scope": "off",
+      "react/react-in-jsx-scope": "error",
       "react/prop-types": 0,
       "import/no-unresolved": [2, { "caseSensitive": false }],
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
