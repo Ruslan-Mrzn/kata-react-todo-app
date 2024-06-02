@@ -13,7 +13,13 @@ export default class Api extends Component {
       tasks: [],
     }
     this.createNewTask = (text) => {
-      const newTask = { text: text, id: this.taskId++, condition: 'view', completed: false }
+      const newTask = {
+        timer: Date.now(),
+        text: text,
+        id: this.taskId++,
+        condition: 'view',
+        completed: false,
+      }
       console.log(newTask)
       this.setState(({ tasks }) => {
         return {
@@ -68,7 +74,7 @@ export default class Api extends Component {
         </header>
         <section className="main">
           <TaskList>
-            {tasks.map(({ text, id, condition, completed }) => (
+            {tasks.map(({ text, id, condition, completed, timer }) => (
               <Task
                 toggleCompleted={this.toggleCompleted}
                 deleteTask={this.deleteTask}
@@ -79,6 +85,7 @@ export default class Api extends Component {
                 completed={completed}
                 editTask={this.editTask}
                 setEditedTask={this.setEditedTask}
+                timer={timer}
               />
             ))}
           </TaskList>
