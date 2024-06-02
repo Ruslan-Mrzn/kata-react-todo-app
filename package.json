@@ -23,12 +23,10 @@
   "lint-staged": {
     "*.js": [
       "npm run lint:fix",
-      "npm run format",
-      "git add"
+      "npm run format"
     ],
     "*.{json,html,css}": [
-      "npm run format",
-      "git add"
+      "npm run format"
     ]
   },
   "eslintConfig": {
