@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import './App.css'
 import NewTaskForm from '../NewTaskForm/NewTaskForm'
 import TaskList from '../TaskList/TaskList'
-// import Task from '../Task/Task'
 import Footer from '../Footer/Footer'
 export default class Api extends Component {
   render() {
@@ -14,7 +13,7 @@ export default class Api extends Component {
           <NewTaskForm />
         </header>
         <section className="main">
-          <TaskList>{/* <Task /> */}</TaskList>
+          <TaskList></TaskList>
           <Footer />
         </section>
       </section>
