@@ -21,10 +21,9 @@
     "pre-commit": "lint-staged"
   },
   "lint-staged": {
-    "*.(js|jsx)": [
+    "*.js": [
       "npm run lint:fix",
-      "npm run format",
-      "git add"
+      "npm run format"
     ]
   },
   "eslintConfig": {
