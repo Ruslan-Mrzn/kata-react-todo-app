@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import './App.css'
 import NewTaskForm from '../NewTaskForm/NewTaskForm'
 import TaskList from '../TaskList/TaskList'
-// import Task from '../Task/Task'
+import Task from '../Task/Task'
 import Footer from '../Footer/Footer'
 export default class Api extends Component {
   render() {
