@@ -17,7 +17,7 @@ export default class Task extends Component {
     return (
       <li className={completed ? 'completed' : condition}>
         <div className="view">
-          <input onChange={() => toggleCompleted(id)} className="toggle" type="checkbox" />
+          <input onChange={() => toggleCompleted(id)} className="toggle" type="checkbox" checked={completed} />
           <label>
             <span className="description">{text}</span>
             <span className="created">created {formatDistanceToNow(timer, { includeSeconds: true })} ago</span>

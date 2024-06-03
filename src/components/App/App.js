@@ -4,6 +4,7 @@ import './App.css'
 import NewTaskForm from '../NewTaskForm/NewTaskForm'
 import TaskList from '../TaskList/TaskList'
 import Task from '../Task/Task'
+import TaskFilter from '../TasksFilter/TasksFilter'
 import Footer from '../Footer/Footer'
 export default class Api extends Component {
   constructor() {
@@ -11,6 +12,9 @@ export default class Api extends Component {
     this.taskId = 0
     this.state = {
       tasks: [],
+      viewAll: true,
+      viewCompleted: false,
+      viewActive: false,
     }
     this.createNewTask = (text) => {
       const newTask = {
@@ -20,7 +24,6 @@ export default class Api extends Component {
         condition: 'view',
         completed: false,
       }
-      console.log(newTask)
       this.setState(({ tasks }) => {
         return {
           tasks: [...tasks, newTask],
@@ -62,10 +65,35 @@ export default class Api extends Component {
         }
       })
     }
+    this.showAll = () => this.setState({ viewAll: true, viewActive: false, viewCompleted: false })
+    this.showActive = () => this.setState({ viewAll: false, viewActive: true, viewCompleted: false })
+    this.showCompleted = () => this.setState({ viewAll: false, viewActive: false, viewCompleted: true })
+    this.mapTasks = (array) =>
+      array.map(({ text, id, condition, completed, timer }) => (
+        <Task
+          toggleCompleted={this.toggleCompleted}
+          deleteTask={this.deleteTask}
+          id={id}
+          key={id}
+          text={text}
+          condition={condition}
+          completed={completed}
+          editTask={this.editTask}
+          setEditedTask={this.setEditedTask}
+          timer={timer}
+        />
+      ))
+    this.clearCompleted = () =>
+      this.setState(({ tasks }) => {
+        return {
+          tasks: tasks.filter(({ completed }) => !completed),
+        }
+      })
   }
 
   render() {
-    const { tasks } = this.state
+    const { tasks, viewAll, viewActive, viewCompleted } = this.state
+    const tasksLeftCount = tasks.filter(({ completed }) => !completed).length
     return (
       <section className="todoapp">
         <header className="header">
@@ -74,22 +102,22 @@ export default class Api extends Component {
         </header>
         <section className="main">
           <TaskList>
-            {tasks.map(({ text, id, condition, completed, timer }) => (
-              <Task
-                toggleCompleted={this.toggleCompleted}
-                deleteTask={this.deleteTask}
-                id={id}
-                key={id}
-                text={text}
-                condition={condition}
-                completed={completed}
-                editTask={this.editTask}
-                setEditedTask={this.setEditedTask}
-                timer={timer}
-              />
-            ))}
+            {viewAll
+              ? this.mapTasks(tasks)
+              : viewActive
+                ? this.mapTasks(tasks.filter(({ completed }) => !completed))
+                : this.mapTasks(tasks.filter(({ completed }) => completed))}
           </TaskList>
-          <Footer />
+          <Footer tasksLeftCount={tasksLeftCount} clearCompleted={this.clearCompleted}>
+            <TaskFilter
+              viewAll={viewAll}
+              viewActive={viewActive}
+              viewCompleted={viewCompleted}
+              showAll={this.showAll}
+              showActive={this.showActive}
+              showCompleted={this.showCompleted}
+            />
+          </Footer>
         </section>
       </section>
     )
