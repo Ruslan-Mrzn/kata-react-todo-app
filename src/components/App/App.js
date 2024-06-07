@@ -16,10 +16,12 @@ export default class Api extends Component {
       viewCompleted: false,
       viewActive: false,
     }
-    this.createNewTask = (text) => {
+    this.createNewTask = (text, min, sec) => {
       const newTask = {
         timer: Date.now(),
         text: text,
+        min: min === '' ? 0 : min,
+        sec: sec === '' ? 0 : sec,
         id: this.taskId++,
         condition: 'view',
         completed: false,
@@ -69,13 +71,15 @@ export default class Api extends Component {
     this.showActive = () => this.setState({ viewAll: false, viewActive: true, viewCompleted: false })
     this.showCompleted = () => this.setState({ viewAll: false, viewActive: false, viewCompleted: true })
     this.mapTasks = (array) =>
-      array.map(({ text, id, condition, completed, timer }) => (
+      array.map(({ text, min, sec, id, condition, completed, timer }) => (
         <Task
           toggleCompleted={this.toggleCompleted}
           deleteTask={this.deleteTask}
           id={id}
           key={id}
           text={text}
+          min={min}
+          sec={sec}
           condition={condition}
           completed={completed}
           editTask={this.editTask}
