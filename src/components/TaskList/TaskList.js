@@ -1,9 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 import './TaskList.css'
-export default class TaskList extends Component {
-  render() {
-    const { children } = this.props
-    return <ul className="todo-list">{children}</ul>
-  }
+const TaskList = ({ children }) => {
+  return <ul className="todo-list">{children}</ul>
 }
+
+export default TaskList
